@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+@theme {
+  /* Legacy tokens (kept for compatibility) */
+  --color-bg: #050508;
+  --color-surface: #0e0e10;
+  --color-surface-2: #14141e;
+  --color-surface-3: #1c1c28;
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-strong: rgba(255, 255, 255, 0.12);
+  --color-text: #e7e4ec;
+  --color-muted: #6e6e85;
+  --color-subtle: #3c3c50;
+
+  --color-accent: #4edea3;
+  --color-accent-2: #6ffbbe;
+  --color-accent-dim: rgba(78, 222, 163, 0.08);
+  --color-accent-glow: rgba(78, 222, 163, 0.18);
+  --color-success: #22c55e;
+  --color-success-dim: rgba(34, 197, 94, 0.1);
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  /* QUANTIFIED palette */
+  --color-primary: #4edea3;
+  --color-primary-dim: #3cd096;
+  --color-primary-fixed: #6ffbbe;
+  --color-primary-fixed-dim: #5fedb0;
+  --color-primary-container: #005236;
+  --color-on-primary: #004a31;
+  --color-on-primary-fixed: #004930;
+  --color-on-primary-container: #5ae9ac;
+  --color-inverse-primary: #006d4a;
+
+  --color-secondary: #f59e0a;
+  --color-secondary-dim: #e39100;
+  --color-secondary-fixed: #ffddb8;
+  --color-secondary-fixed-dim: #ffcb8e;
+  --color-secondary-container: #563400;
+  --color-on-secondary: #472a00;
+  --color-on-secondary-fixed: #5b3700;
+  --color-on-secondary-fixed-variant: #815100;
+  --color-on-secondary-container: #ffaf40;
+
+  --color-tertiary: #9093ff;
+  --color-tertiary-dim: #6063ee;
+  --color-tertiary-fixed: #7073ff;
+  --color-tertiary-fixed-dim: #6366f1;
+  --color-tertiary-container: #7073ff;
+  --color-on-tertiary: #080079;
+  --color-on-tertiary-fixed: #000000;
+  --color-on-tertiary-fixed-variant: #010028;
+  --color-on-tertiary-container: #000000;
+
+  --color-error: #ec7c8a;
+  --color-error-dim: #b95463;
+  --color-error-container: #7f2737;
+  --color-on-error: #490013;
+  --color-on-error-container: #ff97a3;
+
+  --color-surface-container-lowest: #000000;
+  --color-surface-container-low: #131316;
+  --color-surface-container: #19191d;
+  --color-surface-container-high: #1f1f24;
+  --color-surface-container-highest: #25252b;
+  --color-surface-dim: #0e0e10;
+  --color-surface-bright: #2b2c32;
+  --color-surface-variant: #25252b;
+  --color-surface-tint: #4edea3;
+
+  --color-on-surface: #e7e4ec;
+  --color-on-surface-variant: #acaab1;
+  --color-on-background: #e7e4ec;
+  --color-background: #0e0e10;
+  --color-outline: #75757c;
+  --color-outline-variant: #47474e;
+  --color-inverse-surface: #fcf8fb;
+  --color-inverse-on-surface: #565457;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Space Grotesk', ui-monospace, monospace;
+  --font-headline: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-label: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 12px;
+  --radius-inner: 8px;
+}
+
+html,
+body {
+  background-color: var(--color-background);
+  color: var(--color-on-surface);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+}
+
+.sparkline-gradient {
+  background: linear-gradient(90deg, rgba(78, 222, 163, 0) 0%, rgba(78, 222, 163, 0.1) 100%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+}
+
+/* Card depth: soft outer shadow + inner top highlight */
+.card-shadow {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 4px 16px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Elevated card with accent glow — use on hover or featured cards */
+.card-glow {
+  box-shadow:
+    0 0 0 1px rgba(139, 92, 246, 0.2),
+    0 4px 24px rgba(139, 92, 246, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Legacy glass — kept for gradual migration */
+.glass {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 4px 16px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.glass-pill {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, #e7e4ec 0%, #4edea3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Accent gradient background — buttons, logo mark, etc. */
+.gradient-accent {
+  background: linear-gradient(135deg, #4edea3 0%, #3cd096 100%);
+}
+
+/* Thin top highlight on gradient bg elements */
+.gradient-accent-shine {
+  background: linear-gradient(135deg, #6ffbbe 0%, #4edea3 50%, #3cd096 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.15) inset,
+    0 4px 16px rgba(78, 222, 163, 0.3);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-3);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-subtle);
+}

@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find 'd:/Antigravity Projects/Life_Dashboard' -type f -name *)",
+      "Bash(grep -v \"^\\\\.$\")",
+      "Bash(npm --version)",
+      "WebFetch(domain:authjs.dev)",
+      "WebFetch(domain:supabase.com)",
+      "WebFetch(domain:sdk.vercel.ai)",
+      "WebFetch(domain:ai-sdk.dev)",
+      "WebFetch(domain:cdn.jsdelivr.net)",
+      "Bash(curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/ruflo@main/scripts/install.sh)",
+      "Bash(bash -s -- --full)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/ai/package.json'\\).version\\)\")",
+      "Bash(node -e \"const ai = require\\('ai'\\); const result = Object.getOwnPropertyNames\\(ai\\); console.log\\(result.filter\\(k => k.toLowerCase\\(\\).includes\\('stream'\\)\\)\\)\")",
+      "Bash(node -e \"const {streamText} = require\\('ai'\\); const {google} = require\\('@ai-sdk/google'\\); async function test\\(\\) { try { const r = await streamText\\({model: google\\('gemini-1.5-flash'\\), prompt: 'hi'}\\); console.log\\(Object.getOwnPropertyNames\\(Object.getPrototypeOf\\(r\\)\\)\\); } catch\\(e\\) { console.log\\('error:', e.message\\); } } test\\(\\)\")",
+      "Bash(node -e \"const {streamText} = require\\('ai'\\); const {google} = require\\('@ai-sdk/google'\\); async function test\\(\\) { try { const r = await streamText\\({model: google\\('gemini-1.5-flash'\\), prompt: 'hi'}\\); const proto = Object.getPrototypeOf\\(r\\); const names = []; let p = proto; while\\(p\\) { names.push\\(...Object.getOwnPropertyNames\\(p\\)\\); p = Object.getPrototypeOf\\(p\\); if\\(p === Object.prototype\\) break; } console.log\\(names.filter\\(n => n.toLowerCase\\(\\).includes\\('response'\\) || n.toLowerCase\\(\\).includes\\('stream'\\) || n.toLowerCase\\(\\).includes\\('pipe'\\)\\)\\); } catch\\(e\\) { console.log\\('error:', e.message\\); } } test\\(\\)\")",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/@ai-sdk/react/package.json'\\).version\\)\")",
+      "Bash(node -e \"const t = require\\('./node_modules/@ai-sdk/react'\\); console.log\\(Object.keys\\(t\\)\\)\")",
+      "Bash(node -e \"const fs = require\\('fs'\\); const d = fs.readFileSync\\('./node_modules/@ai-sdk/react/dist/index.d.ts', 'utf8'\\); const lines = d.split\\('\\\\n'\\); const idx = lines.findIndex\\(l => l.includes\\('UseChatHelpers'\\)\\); console.log\\(lines.slice\\(idx, idx+60\\).join\\('\\\\n'\\)\\)\")",
+      "mcp__stitch__get_project",
+      "mcp__stitch__list_screens",
+      "mcp__stitch__get_screen",
+      "WebFetch(domain:contribution.usercontent.google.com)"
+    ]
+  }
+}
