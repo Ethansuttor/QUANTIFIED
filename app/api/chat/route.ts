@@ -24,16 +24,24 @@ export async function POST(req: Request) {
 
   const { messages, context } = body as { messages: any[], context?: string }
 
-  const result = streamText({
-    model: google('gemini-2.5-flash'),
-    system: `You are a personal analytics assistant for a college student tracking their life data. Be concise and specific — cite actual numbers from the data when answering. Here is the user's recent data:\n\n${context ?? 'No data provided.'}`,
-    messages: messages.map((m: any) => ({
-      role: m.role as 'user' | 'assistant' | 'system',
-      content: m.parts 
-        ? m.parts.map((p: any) => p.text || '').join('')
-        : m.content || ' ', // Fallback to space to avoid empty content error
-    })),
-  })
+  try {
+    const result = streamText({
+      model: google('gemini-1.5-flash'),
+      system: `You are a personal analytics assistant for a college student tracking their life data. Be concise and specific — cite actual numbers from the data when answering. Here is the user's recent data:\n\n${context ?? 'No data provided.'}`,
+      messages: messages.map((m: any) => ({
+        role: m.role as 'user' | 'assistant' | 'system',
+        content: m.parts 
+          ? m.parts.map((p: any) => p.text || '').join('')
+          : m.content || ' ', // Fallback to space to avoid empty content error
+      })),
+    })
 
-  return result.toUIMessageStreamResponse()
+    return result.toUIMessageStreamResponse()
+  } catch (error) {
+    console.error('Chat API Error:', error)
+    return new Response(
+      JSON.stringify({ error: 'Failed to generate response', details: String(error) }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    )
+  }
 }

@@ -1,198 +1,75 @@
-# Claude Code Configuration - RuFlo V3
+# Antigravity Agent Configuration - Life Dashboard
 
-## Behavioral Rules (Always Enforced)
+This file defines the behavior, design systems, and specialized capabilities for the Antigravity agent in the Life Dashboard project.
 
-- Do what has been asked; nothing more, nothing less
-- NEVER create files unless they're absolutely necessary for achieving your goal
-- ALWAYS prefer editing an existing file to creating a new one
-- NEVER proactively create documentation files (*.md) or README files unless explicitly requested
-- NEVER save working files, text/mds, or tests to the root folder
-- Never continuously check status after spawning a swarm — wait for results
-- ALWAYS read a file before editing it
-- NEVER commit secrets, credentials, or .env files
+## 🚀 Core Behavioral Rules (Always Enforced)
 
-## File Organization
+- **Do what has been asked**; nothing more, nothing less.
+- **Maintain Context Synergy**: Always cross-reference `CLAUDE.md` for project architectural rules.
+- **NEVER create files** unless absolutely necessary.
+- **ALWAYS prefer editing** existing files to creating new ones.
+- **NEVER save to root** — use the directories defined below.
+- **AESTHETICS ARE MANDATORY**: If a web app looks simple or basic, you have failed.
+- **Don't use placeholders**: If you need an image, use `generate_image`.
+- **Unique IDs**: Ensure all interactive elements have unique, descriptive IDs for browser testing.
 
-- NEVER save to root folder — use the directories below
-- Use `/src` for source code files
-- Use `/tests` for test files
-- Use `/docs` for documentation and markdown files
-- Use `/config` for configuration files
-- Use `/scripts` for utility scripts
-- Use `/examples` for example code
+## 🏗️ Project Architecture & Layout
 
-## Project Architecture
+- **Source Code**: `/src` or `/app` (Next.js App Router).
+- **Components**: `/components/ui`, `/components/dashboard`, `/components/charts`.
+- **Database**: `/lib/supabase` (Supabase Client).
+- **Environment**: Use `.env.local` for credentials. NEVER commit secrets.
 
-- Follow Domain-Driven Design with bounded contexts
-- Keep files under 500 lines
-- Use typed interfaces for all public APIs
-- Prefer TDD London School (mock-first) for new code
-- Use event sourcing for state changes
-- Ensure input validation at system boundaries
+## 🎨 Web Application Design System
 
-### Project Config
+Implement designs that feeling **PREMIUM** and **ELITE**:
 
-- **Topology**: hierarchical-mesh
-- **Max Agents**: 15
-- **Memory**: hybrid
-- **HNSW**: Enabled
-- **Neural**: Enabled
+- **Palette**: Dark Mode by default. High-contrast, but sophisticated (e.g., Slate, Emerald, and Gold accents).
+- **Typography**: Google Fonts (Inter, Outfit, or Roboto).
+- **Effects**: Glassmorphism, smooth gradients, and micro-animations (Framer Motion).
+- **Visuals**: Use `generate_image` for realistic data visualizations or UI mockups.
 
-## Build & Test
+## 📊 Project Insight Goals (Correlation Focus)
 
-```bash
-# Build
-npm run build
+1. **Academic Performance vs. Study Time**: Correlation between `logs.category='study'` and `grades.score`.
+2. **Habit Impact**: Alcohol consumption vs. sleep quality and mood.
+3. **Driving vs. Spend**: Correlation between driving miles (`logs.category='drive'`) and spending (`logs.category='spend'`).
+4. **Passive Capture**: Prioritize data flowing from iOS Shortcuts (via Supabase REST API).
 
-# Test
-npm test
+## 🛠️ Specialized Skills & Workflows
 
-# Lint
-npm run lint
-```
+| Slash Command | Usage |
+| :--- | :--- |
+| `/brainstorming` | **MANDATORY** before any new feature or component design. |
+| `/ckm:ui-styling` | Use for shadcn/ui + Tailwind components. |
+| `/ckm:design` | Use for brand identity and design tokens. |
+| `/frontend-design` | Use for high-fidelity interactive interfaces. |
+| `/webapp-testing` | Use for verifying frontend functionality with Playwright. |
+| `/systematic-debugging` | Use for any bug or unexpected UI/database behavior. |
 
-- ALWAYS run tests after making code changes
-- ALWAYS verify build succeeds before committing
+## 📦 Data Schema Reference (Supabase)
 
-## Security Rules
+- **`logs`**: Event-based tracking (`study`, `drive`, `drink`, `workout`, `spend`).
+- **`daily_summaries`**: Daily values (`sleep_hrs`, `mood`, `energy`, `screen_hrs`).
+- **`grades`**: Academic performance metrics.
 
-- NEVER hardcode API keys, secrets, or credentials in source files
-- NEVER commit .env files or any file containing secrets
-- Always validate user input at system boundaries
-- Always sanitize file paths to prevent directory traversal
-- Run `npx @claude-flow/cli@latest security scan` after security-related changes
+---
 
-## Concurrency: 1 MESSAGE = ALL RELATED OPERATIONS
+## 📅 Build Priorities
 
-- All operations MUST be concurrent/parallel in a single message
-- Use Claude Code's Task tool for spawning agents, not just MCP
-- ALWAYS batch ALL todos in ONE TodoWrite call (5-10+ minimum)
-- ALWAYS spawn ALL agents in ONE message with full instructions via Task tool
-- ALWAYS batch ALL file reads/writes/edits in ONE message
-- ALWAYS batch ALL Bash commands in ONE message
+1. **Data Ingestion**: Ensure iOS Shortcut endpoints are robust (handled in Supabase).
+2. **Unified UI**: Harmonize all pages with the "Quantified" palette.
+3. **Correlation Engine**: Build the logic that links study time to grade outcomes.
+4. **Edge Functions**: Deploy functions if custom logic for alerts or processing is needed.
 
-## Swarm Orchestration
+## 🔍 Security & Performance
 
-- MUST initialize the swarm using CLI tools when starting complex tasks
-- MUST spawn concurrent agents using Claude Code's Task tool
-- Never use CLI tools alone for execution — Task tool agents do the actual work
-- MUST call CLI tools AND Task tool in ONE message for complex work
+- **Security**: RLS is mandatory.
+- **Latency**: Keep dashboard load times under 1 second.
 
-### 3-Tier Model Routing (ADR-026)
+---
 
-| Tier | Handler | Latency | Cost | Use Cases |
-|------|---------|---------|------|-----------|
-| **1** | Agent Booster (WASM) | <1ms | $0 | Simple transforms (var→const, add types) — Skip LLM |
-| **2** | Haiku | ~500ms | $0.0002 | Simple tasks, low complexity (<30%) |
-| **3** | Sonnet/Opus | 2-5s | $0.003-0.015 | Complex reasoning, architecture, security (>30%) |
-
-- Always check for `[AGENT_BOOSTER_AVAILABLE]` or `[TASK_MODEL_RECOMMENDATION]` before spawning agents
-- Use Edit tool directly when `[AGENT_BOOSTER_AVAILABLE]`
-
-## Swarm Configuration & Anti-Drift
-
-- ALWAYS use hierarchical topology for coding swarms
-- Keep maxAgents at 6-8 for tight coordination
-- Use specialized strategy for clear role boundaries
-- Use `raft` consensus for hive-mind (leader maintains authoritative state)
-- Run frequent checkpoints via `post-task` hooks
-- Keep shared memory namespace for all agents
-
-```bash
-npx @claude-flow/cli@latest swarm init --topology hierarchical --max-agents 8 --strategy specialized
-```
-
-## Swarm Execution Rules
-
-- ALWAYS use `run_in_background: true` for all agent Task calls
-- ALWAYS put ALL agent Task calls in ONE message for parallel execution
-- After spawning, STOP — do NOT add more tool calls or check status
-- Never poll TaskOutput or check swarm status — trust agents to return
-- When agent results arrive, review ALL results before proceeding
-
-## V3 CLI Commands
-
-### Core Commands
-
-| Command | Subcommands | Description |
-|---------|-------------|-------------|
-| `init` | 4 | Project initialization |
-| `agent` | 8 | Agent lifecycle management |
-| `swarm` | 6 | Multi-agent swarm coordination |
-| `memory` | 11 | AgentDB memory with HNSW search |
-| `task` | 6 | Task creation and lifecycle |
-| `session` | 7 | Session state management |
-| `hooks` | 17 | Self-learning hooks + 12 workers |
-| `hive-mind` | 6 | Byzantine fault-tolerant consensus |
-
-### Quick CLI Examples
-
-```bash
-npx @claude-flow/cli@latest init --wizard
-npx @claude-flow/cli@latest agent spawn -t coder --name my-coder
-npx @claude-flow/cli@latest swarm init --v3-mode
-npx @claude-flow/cli@latest memory search --query "authentication patterns"
-npx @claude-flow/cli@latest doctor --fix
-```
-
-## Available Agents (60+ Types)
-
-### Core Development
-
-`coder`, `reviewer`, `tester`, `planner`, `researcher`
-
-### Specialized
-
-`security-architect`, `security-auditor`, `memory-specialist`, `performance-engineer`
-
-### Swarm Coordination
-
-`hierarchical-coordinator`, `mesh-coordinator`, `adaptive-coordinator`
-
-### GitHub & Repository
-
-`pr-manager`, `code-review-swarm`, `issue-tracker`, `release-manager`
-
-### SPARC Methodology
-
-`sparc-coord`, `sparc-coder`, `specification`, `pseudocode`, `architecture`
-
-## Memory Commands Reference
-
-```bash
-# Store (REQUIRED: --key, --value; OPTIONAL: --namespace, --ttl, --tags)
-npx @claude-flow/cli@latest memory store --key "pattern-auth" --value "JWT with refresh" --namespace patterns
-
-# Search (REQUIRED: --query; OPTIONAL: --namespace, --limit, --threshold)
-npx @claude-flow/cli@latest memory search --query "authentication patterns"
-
-# List (OPTIONAL: --namespace, --limit)
-npx @claude-flow/cli@latest memory list --namespace patterns --limit 10
-
-# Retrieve (REQUIRED: --key; OPTIONAL: --namespace)
-npx @claude-flow/cli@latest memory retrieve --key "pattern-auth" --namespace patterns
-```
-
-## Quick Setup
-
-```bash
-claude mcp add claude-flow -- npx -y @claude-flow/cli@latest
-npx @claude-flow/cli@latest daemon start
-npx @claude-flow/cli@latest doctor --fix
-```
-
-## Claude Code vs CLI Tools
-
-- Claude Code's Task tool handles ALL execution: agents, file ops, code generation, git
-- CLI tools handle coordination via Bash: swarm init, memory, hooks, routing
-- NEVER use CLI tools as a substitute for Task tool agents
-
-## Support
-
-- Documentation: <https://github.com/ruvnet/claude-flow>
-- Issues: <https://github.com/ruvnet/claude-flow/issues>
-
-# Life Dashboard — Full Project Plan
+## Life Dashboard — Full Project Plan
 
 ## Project Overview
 
@@ -213,7 +90,7 @@ The three core insight goals driving every design decision:
 ## What Gets Tracked
 
 | Category | Collection Method | Effort Level |
-|---|---|---|
+| :--- | :--- | :--- |
 | Study time | iOS Shortcut triggers on Blackboard or PDF reader app open/close | Passive |
 | Driving miles | iOS Shortcut triggers on car Bluetooth connect/disconnect | Passive |
 | Drinks / alcohol | Existing BAC tracker app (iOS Shortcuts), migrated to POST to Supabase | 1 tap |
@@ -331,7 +208,7 @@ Enable Row Level Security (RLS) on all three tables in Supabase so the REST API 
 
 Every Shortcut POSTs to the Supabase REST endpoint:
 
-```
+```http
 POST https://[YOUR_PROJECT_REF].supabase.co/rest/v1/logs
 Headers:
   apikey: [SUPABASE_ANON_KEY]
@@ -431,7 +308,7 @@ Example queries:
 
 Prompt structure for the weekly n8n call:
 
-```
+```markdown
 You are a personal analytics assistant. Here is one week of life tracking data for a 21-year-old college student:
 
 [JSON dump of logs, daily_summaries, and grades for the past 7 days]
@@ -451,7 +328,7 @@ Provide exactly 5 bullet points covering:
 Do not try to build everything at once. Follow this sequence to always have a working, useful system at each step.
 
 | Phase | Task | Notes |
-|---|---|---|
+| :--- | :--- | :--- |
 | 1 | Create Supabase project, run all three table SQL statements, enable RLS, copy API keys | 20 minutes, everything depends on this |
 | 2 | Migrate existing BAC tracker Shortcut to POST to Supabase | Easiest win, already built |
 | 3 | Build driving Bluetooth Shortcut | Most passive, high value |
@@ -473,7 +350,7 @@ Built with the Scriptable app (free, JavaScript-based). Queries the Supabase RES
 
 Display format:
 
-```
+```text
 Today — [Day, Date]
 Study    2h 14m
 Drive    18.3 mi
@@ -487,7 +364,7 @@ Spend    $34
 ## Tech Stack Summary
 
 | Layer | Technology |
-|---|---|
+| :--- | :--- |
 | Database | Supabase (PostgreSQL) |
 | Data collection | iOS Shortcuts |
 | Automation / weekly report | n8n |
@@ -503,7 +380,7 @@ Spend    $34
 
 ## Environment Variables Needed
 
-```
+```env
 NEXT_PUBLIC_SUPABASE_URL=https://[ref].supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=[anon key]
 SUPABASE_SERVICE_ROLE_KEY=[service role key — server-side only, never exposed to client]

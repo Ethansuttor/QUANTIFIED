@@ -18,7 +18,8 @@ const SUGGESTED = [
 
 export function InsightsChatBox({ contextSummary }: InsightsChatBoxProps) {
   const [input, setInput] = useState('')
-  const { messages, sendMessage, status } = useChat({
+  const { messages, append, status } = useChat({
+    api: '/api/chat',
     body: { context: contextSummary },
   } as any)
 
@@ -29,10 +30,15 @@ export function InsightsChatBox({ contextSummary }: InsightsChatBoxProps) {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setInput(e.target.value)
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!input.trim() || isLoading) return
-    sendMessage({ text: input })
+    
+    append({ role: 'user', content: input })
     setInput('')
   }
 
@@ -70,8 +76,13 @@ export function InsightsChatBox({ contextSummary }: InsightsChatBoxProps) {
 
         <div className="flex flex-col gap-4">
           {messages.map((m) => {
-            const text = m.parts.filter(isTextUIPart).map((p) => p.text).join('')
             const isUser = m.role === 'user'
+            // Support both old 'content' and new 'parts' from AI SDK v4+
+            const content = m.content || (m as any).parts
+              ?.filter((p: any) => p.type === 'text')
+              ?.map((p: any) => p.text)
+              ?.join('') || ''
+            
             return (
               <div key={m.id} className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
                 <div
@@ -81,7 +92,7 @@ export function InsightsChatBox({ contextSummary }: InsightsChatBoxProps) {
                       : 'border border-border bg-surface-2 text-text'
                   }`}
                 >
-                  <p className="whitespace-pre-wrap">{text}</p>
+                  <p className="whitespace-pre-wrap">{content}</p>
                 </div>
               </div>
             )
@@ -111,7 +122,7 @@ export function InsightsChatBox({ contextSummary }: InsightsChatBoxProps) {
       <form onSubmit={handleSubmit} className="flex gap-2.5">
         <input
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={handleInputChange}
           placeholder="Ask about your data..."
           className="flex-1 rounded-[var(--radius-inner)] border border-border bg-surface px-4 py-2.5 text-sm text-text placeholder:text-muted/50 transition-all duration-150 focus:border-accent/40 focus:outline-none focus:ring-2 focus:ring-accent/15"
         />
@@ -123,3 +134,5 @@ export function InsightsChatBox({ contextSummary }: InsightsChatBoxProps) {
     </div>
   )
 }
+
+
