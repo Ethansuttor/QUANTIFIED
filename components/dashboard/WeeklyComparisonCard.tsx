@@ -19,7 +19,7 @@ export function WeeklyComparisonCard({ metrics }: WeeklyComparisonCardProps) {
         </span>
         <span className="text-[10px] font-mono text-zinc-500">Auto-refresh: 300s</span>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
         {metrics.map((m) => {
           const pct =
             m.current != null && m.goal > 0

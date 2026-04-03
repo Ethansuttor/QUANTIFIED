@@ -17,7 +17,7 @@ export function TopNavBar() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <nav className="fixed top-0 w-full border-b border-outline-variant/10 bg-background/70 backdrop-blur-xl z-50 flex justify-between items-center px-6 h-14 shadow-[0_12px_32px_rgba(0,0,0,0.5)]">
+    <nav className="fixed top-0 w-full border-b border-outline-variant/10 bg-background/70 backdrop-blur-xl z-50 flex justify-between items-center px-4 md:px-6 h-14 shadow-[0_12px_32px_rgba(0,0,0,0.5)] safe-top">
       <div className="flex items-center gap-8">
         <span className="text-lg font-black tracking-tighter text-on-surface">QUANTIFIED</span>
         <div className="hidden md:flex gap-2 items-center">
@@ -42,7 +42,7 @@ export function TopNavBar() {
       </div>
 
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2 px-3 py-1 bg-surface-container rounded-full border border-outline-variant/10">
+        <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-surface-container rounded-full border border-outline-variant/10">
           <span
             className="material-symbols-outlined text-primary"
             style={{ fontSize: '14px', fontVariationSettings: "'FILL' 1" }}
@@ -55,7 +55,7 @@ export function TopNavBar() {
         </div>
         <button 
           onClick={() => setIsOpen(true)}
-          className="bg-primary/20 text-primary border border-primary/20 px-4 py-1.5 text-xs font-label uppercase tracking-widest rounded hover:bg-primary/30 transition-all active:scale-95"
+          className="hidden md:block bg-primary/20 text-primary border border-primary/20 px-4 py-1.5 text-xs font-label uppercase tracking-widest rounded hover:bg-primary/30 transition-all active:scale-95"
         >
           Quick Log
         </button>

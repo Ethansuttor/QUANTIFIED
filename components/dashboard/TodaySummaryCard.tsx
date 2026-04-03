@@ -31,7 +31,7 @@ export function TodaySummaryCard({
             <span className="font-label text-xs uppercase tracking-[0.2em] text-primary">
               Study / Focus
             </span>
-            <h3 className="text-5xl font-black text-on-surface mt-2 font-headline tabular-nums">
+            <h3 className="text-4xl md:text-5xl font-black text-on-surface mt-2 font-headline tabular-nums">
               {formatStudyTime(studyHours)}
             </h3>
           </div>

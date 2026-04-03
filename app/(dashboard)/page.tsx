@@ -81,7 +81,7 @@ export default async function TodayPage() {
     return (
       <div>
         {/* Header */}
-        <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+        <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 md:mb-10">
           <div className="space-y-1">
             <div className="flex items-center gap-3 mb-2">
               <span className="px-2 py-0.5 bg-primary-container/20 text-primary font-label text-[10px] tracking-widest uppercase border border-primary/20 rounded">
@@ -92,15 +92,15 @@ export default async function TodayPage() {
                 System Nominal
               </span>
             </div>
-            <h1 className="text-4xl font-black tracking-tight text-on-surface font-headline leading-none">
+            <h1 className="text-3xl md:text-4xl font-black tracking-tight text-on-surface font-headline leading-none">
               {dateLabel}
             </h1>
-            <p className="text-on-surface-variant font-label text-sm uppercase tracking-widest opacity-80">
+            <p className="text-on-surface-variant font-label text-[11px] md:text-sm uppercase tracking-widest opacity-80">
               Last Sync: {syncTime}
             </p>
           </div>
           {dailyScore !== null && (
-            <div className="bg-surface-container p-3 rounded-lg border border-outline-variant/10 shadow-sm flex flex-col min-w-[120px]">
+            <div className="bg-surface-container p-3 rounded-lg border border-outline-variant/10 shadow-sm flex flex-col min-w-[120px] w-fit">
               <span className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
                 Daily Score
               </span>
