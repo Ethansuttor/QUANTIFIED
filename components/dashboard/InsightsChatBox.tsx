@@ -18,10 +18,10 @@ const SUGGESTED = [
 
 export function InsightsChatBox({ contextSummary }: InsightsChatBoxProps) {
   const [input, setInput] = useState('')
-  const { messages, append, status } = useChat({
+  const { messages, append, status } = (useChat as any)({
     api: '/api/chat',
     body: { context: contextSummary },
-  } as any)
+  })
 
   const isLoading = status === 'submitted' || status === 'streaming'
   const bottomRef = useRef<HTMLDivElement>(null)
@@ -75,13 +75,16 @@ export function InsightsChatBox({ contextSummary }: InsightsChatBoxProps) {
         )}
 
         <div className="flex flex-col gap-4">
-          {messages.map((m) => {
+          {messages.map((m: any) => {
             const isUser = m.role === 'user'
-            // Support both old 'content' and new 'parts' from AI SDK v4+
-            const content = m.content || (m as any).parts
-              ?.filter((p: any) => p.type === 'text')
-              ?.map((p: any) => p.text)
-              ?.join('') || ''
+            // Render parts for modern AI SDK (v5+) - otherwise fallback to content
+            const parts = (m as any).parts || []
+            const content = parts.length > 0
+              ? parts
+                  ?.filter((p: any) => p.type === 'text')
+                  ?.map((p: any) => p.text)
+                  ?.join('')
+              : (m as any).content || ''
             
             return (
               <div key={m.id} className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
